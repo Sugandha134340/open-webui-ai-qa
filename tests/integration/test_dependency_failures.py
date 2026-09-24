@@ -46,3 +46,67 @@ def test_dependency_timeout_is_detected(monkeypatch):
         assert False, "Expected dependency timeout"
     except requests.Timeout as exc:
         assert "timeout" in str(exc).lower()
+
+
+def test_dependency_malformed_response_is_detected(monkeypatch):
+    client = OllamaClient()
+
+    class MalformedResponse:
+        status_code = 200
+
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            raise ValueError("malformed JSON response")
+
+    def fake_post(*args, **kwargs):
+        return MalformedResponse()
+
+    monkeypatch.setattr(requests, "post", fake_post)
+
+    try:
+        client.generate("malformed response test")
+        assert False, "Expected malformed dependency response failure"
+    except ValueError as exc:
+        assert "malformed" in str(exc).lower()
+
+
+def test_dependency_empty_response_is_handled(monkeypatch):
+    client = OllamaClient()
+
+    class EmptyResponse:
+        status_code = 200
+
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {}
+
+    def fake_post(*args, **kwargs):
+        return EmptyResponse()
+
+    monkeypatch.setattr(requests, "post", fake_post)
+
+    result = client.generate("empty response test")
+
+    assert isinstance(result, dict)
+    assert result["response"] == ""
+
+
+def test_dependency_unavailable_is_detected(monkeypatch):
+    client = OllamaClient()
+
+    def fake_post(*args, **kwargs):
+        raise requests.ConnectionError(
+            "simulated dependency unavailable"
+        )
+
+    monkeypatch.setattr(requests, "post", fake_post)
+
+    try:
+        client.generate("dependency unavailable test")
+        assert False, "Expected dependency unavailable failure"
+    except requests.ConnectionError as exc:
+        assert "unavailable" in str(exc).lower()
