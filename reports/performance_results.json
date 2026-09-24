@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-24T12:46:56.047247+00:00",
+  "timestamp": "2026-09-24T14:49:41.009888+00:00",
   "test_type": "stepped_load",
   "model": "llama3.2:3b",
   "concurrency_levels": [
@@ -15,15 +15,30 @@
       "successful": 1,
       "failed": 0,
       "error_rate": 0.0,
-      "wall_clock_seconds": 10.8987,
-      "average_latency_seconds": 10.8973,
-      "p50_latency_seconds": 10.8973,
-      "p95_latency_seconds": 10.8973,
+      "wall_clock_seconds": 3.402,
+      "average_latency_seconds": 3.3991,
+      "p50_latency_seconds": 3.3991,
+      "p95_latency_seconds": 3.3991,
+      "resource_samples": [
+        {
+          "cpu_percent": "1.12%",
+          "memory_usage": "639.4MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:12.839147+00:00"
+        },
+        {
+          "cpu_percent": "0.69%",
+          "memory_usage": "639.1MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:14.850331+00:00"
+        }
+      ],
+      "resource_sample_count": 2,
       "results": [
         {
           "request_id": 1,
           "status": "PASS",
-          "latency_seconds": 10.8973,
+          "latency_seconds": 3.3991,
           "response_non_empty": true
         }
       ]
@@ -34,27 +49,48 @@
       "successful": 3,
       "failed": 0,
       "error_rate": 0.0,
-      "wall_clock_seconds": 5.6941,
-      "average_latency_seconds": 4.381,
-      "p50_latency_seconds": 4.354,
-      "p95_latency_seconds": 5.5587,
-      "results": [
+      "wall_clock_seconds": 5.7489,
+      "average_latency_seconds": 3.9596,
+      "p50_latency_seconds": 3.9594,
+      "p95_latency_seconds": 4.7837,
+      "resource_samples": [
         {
-          "request_id": 1,
-          "status": "PASS",
-          "latency_seconds": 3.0964,
-          "response_non_empty": true
+          "cpu_percent": "0.84%",
+          "memory_usage": "639.1MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:16.876002+00:00"
         },
+        {
+          "cpu_percent": "0.85%",
+          "memory_usage": "639MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:18.884845+00:00"
+        },
+        {
+          "cpu_percent": "0.55%",
+          "memory_usage": "638.9MiB / 7.614GiB",
+          "memory_percent": "8.19%",
+          "timestamp": "2026-09-24T14:49:20.879682+00:00"
+        }
+      ],
+      "resource_sample_count": 3,
+      "results": [
         {
           "request_id": 3,
           "status": "PASS",
-          "latency_seconds": 4.354,
+          "latency_seconds": 3.0441,
           "response_non_empty": true
         },
         {
           "request_id": 2,
           "status": "PASS",
-          "latency_seconds": 5.6925,
+          "latency_seconds": 3.9594,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 1,
+          "status": "PASS",
+          "latency_seconds": 4.8753,
           "response_non_empty": true
         }
       ]
@@ -65,39 +101,66 @@
       "successful": 5,
       "failed": 0,
       "error_rate": 0.0,
-      "wall_clock_seconds": 7.5066,
-      "average_latency_seconds": 5.3317,
-      "p50_latency_seconds": 5.2885,
-      "p95_latency_seconds": 7.3046,
+      "wall_clock_seconds": 8.049,
+      "average_latency_seconds": 4.9063,
+      "p50_latency_seconds": 4.9167,
+      "p95_latency_seconds": 6.5627,
+      "resource_samples": [
+        {
+          "cpu_percent": "0.58%",
+          "memory_usage": "638.9MiB / 7.614GiB",
+          "memory_percent": "8.19%",
+          "timestamp": "2026-09-24T14:49:22.903375+00:00"
+        },
+        {
+          "cpu_percent": "14.84%",
+          "memory_usage": "639.8MiB / 7.614GiB",
+          "memory_percent": "8.21%",
+          "timestamp": "2026-09-24T14:49:24.928798+00:00"
+        },
+        {
+          "cpu_percent": "0.70%",
+          "memory_usage": "639.7MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:26.925510+00:00"
+        },
+        {
+          "cpu_percent": "0.80%",
+          "memory_usage": "639.6MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:28.929167+00:00"
+        }
+      ],
+      "resource_sample_count": 4,
       "results": [
+        {
+          "request_id": 3,
+          "status": "PASS",
+          "latency_seconds": 3.0549,
+          "response_non_empty": true
+        },
         {
           "request_id": 2,
           "status": "PASS",
-          "latency_seconds": 3.0899,
+          "latency_seconds": 3.9896,
           "response_non_empty": true
         },
         {
           "request_id": 4,
           "status": "PASS",
-          "latency_seconds": 4.2693,
-          "response_non_empty": true
-        },
-        {
-          "request_id": 1,
-          "status": "PASS",
-          "latency_seconds": 5.2885,
+          "latency_seconds": 4.9167,
           "response_non_empty": true
         },
         {
           "request_id": 5,
           "status": "PASS",
-          "latency_seconds": 6.5068,
+          "latency_seconds": 5.8229,
           "response_non_empty": true
         },
         {
-          "request_id": 3,
+          "request_id": 1,
           "status": "PASS",
-          "latency_seconds": 7.504,
+          "latency_seconds": 6.7476,
           "response_non_empty": true
         }
       ]
@@ -108,69 +171,108 @@
       "successful": 10,
       "failed": 0,
       "error_rate": 0.0,
-      "wall_clock_seconds": 12.7179,
-      "average_latency_seconds": 7.9586,
-      "p50_latency_seconds": 7.9883,
-      "p95_latency_seconds": 12.1547,
-      "results": [
+      "wall_clock_seconds": 12.0623,
+      "average_latency_seconds": 7.2328,
+      "p50_latency_seconds": 7.2109,
+      "p95_latency_seconds": 10.9987,
+      "resource_samples": [
         {
-          "request_id": 10,
-          "status": "PASS",
-          "latency_seconds": 3.2717,
-          "response_non_empty": true
+          "cpu_percent": "0.64%",
+          "memory_usage": "639.3MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:30.957270+00:00"
         },
+        {
+          "cpu_percent": "0.72%",
+          "memory_usage": "639.5MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:32.986417+00:00"
+        },
+        {
+          "cpu_percent": "0.68%",
+          "memory_usage": "639.5MiB / 7.614GiB",
+          "memory_percent": "8.20%",
+          "timestamp": "2026-09-24T14:49:34.989354+00:00"
+        },
+        {
+          "cpu_percent": "0.71%",
+          "memory_usage": "626.6MiB / 7.614GiB",
+          "memory_percent": "8.04%",
+          "timestamp": "2026-09-24T14:49:36.990733+00:00"
+        },
+        {
+          "cpu_percent": "0.78%",
+          "memory_usage": "626.6MiB / 7.614GiB",
+          "memory_percent": "8.04%",
+          "timestamp": "2026-09-24T14:49:39.007838+00:00"
+        },
+        {
+          "cpu_percent": "0.59%",
+          "memory_usage": "626.4MiB / 7.614GiB",
+          "memory_percent": "8.03%",
+          "timestamp": "2026-09-24T14:49:41.009231+00:00"
+        }
+      ],
+      "resource_sample_count": 6,
+      "results": [
         {
           "request_id": 1,
           "status": "PASS",
-          "latency_seconds": 4.2416,
-          "response_non_empty": true
-        },
-        {
-          "request_id": 9,
-          "status": "PASS",
-          "latency_seconds": 5.4039,
-          "response_non_empty": true
-        },
-        {
-          "request_id": 7,
-          "status": "PASS",
-          "latency_seconds": 6.5682,
-          "response_non_empty": true
-        },
-        {
-          "request_id": 4,
-          "status": "PASS",
-          "latency_seconds": 7.5134,
+          "latency_seconds": 3.0791,
           "response_non_empty": true
         },
         {
           "request_id": 3,
           "status": "PASS",
-          "latency_seconds": 8.4632,
+          "latency_seconds": 3.9845,
           "response_non_empty": true
         },
         {
           "request_id": 5,
           "status": "PASS",
-          "latency_seconds": 9.3535,
+          "latency_seconds": 4.9104,
           "response_non_empty": true
         },
         {
-          "request_id": 8,
+          "request_id": 7,
           "status": "PASS",
-          "latency_seconds": 10.5845,
+          "latency_seconds": 5.8184,
           "response_non_empty": true
         },
         {
           "request_id": 2,
           "status": "PASS",
-          "latency_seconds": 11.4746,
+          "latency_seconds": 6.7645,
           "response_non_empty": true
         },
         {
           "request_id": 6,
           "status": "PASS",
-          "latency_seconds": 12.7111,
+          "latency_seconds": 7.6573,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 8,
+          "status": "PASS",
+          "latency_seconds": 8.6408,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 4,
+          "status": "PASS",
+          "latency_seconds": 9.5699,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 9,
+          "status": "PASS",
+          "latency_seconds": 10.479,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 10,
+          "status": "PASS",
+          "latency_seconds": 11.4239,
           "response_non_empty": true
         }
       ]

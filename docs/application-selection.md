@@ -1,419 +1,261 @@
-# Application Selection Report
+# Application Selection and Analysis
 
 ## 1. Selected Application
 
-**Application:** Open WebUI
-**Repository:** `open-webui/open-webui`
-**Version:** v0.11.4
-**Deployment:** Docker
-**AI Provider:** Ollama
-**Local Model:** `llama3.2:3b`
-**Application URL:** `http://localhost:3000`
+The selected application for this QA automation project is **Open WebUI v0.11.4**, an open-source web interface for interacting with AI/LLM backends.
 
-Open WebUI was selected as the system under test because it is a real, actively developed open-source AI application with substantial application logic and multiple layers that can be tested independently and together.
+The application was selected because it provides a realistic AI-powered workflow that allows testing across multiple QA dimensions, including:
 
-The application provides a web-based interface for interacting with AI models and supports functionality beyond a simple model wrapper, including conversations, authentication, persistent application data, retrieval-augmented generation (RAG), tools/functions, and integration with different AI providers.
+- UI and end-to-end workflows
+- API and backend behavior
+- authentication and authorization
+- AI/LLM response quality
+- dependency failures
+- concurrency
+- performance and latency
+- safety and prompt-injection behavior
+- reliability and nondeterminism
+- CI/CD quality gates
 
-The application is deployed locally using Docker, while the AI model is served locally through Ollama. This provides a reproducible test environment without depending on a personal cloud account or manually maintained application state.
+The selected version was pinned to **Open WebUI v0.11.4** to make the test environment reproducible.
 
 ---
 
-## 2. Repository and Version
+## 2. Selection Rationale
 
-**Repository:** `https://github.com/open-webui/open-webui`
+The application was evaluated against the requirements of the assignment.
 
-**Selected version:** `v0.11.4`
+| Evaluation Area | Open WebUI Coverage |
+|---|---|
+| AI-powered functionality | Yes |
+| Web UI | Yes |
+| Backend/API layer | Yes |
+| External AI dependency | Yes — Ollama |
+| AI response evaluation | Yes |
+| Authentication | Yes |
+| Negative/edge-case testing | Yes |
+| Dependency failure testing | Yes |
+| Concurrency testing | Yes |
+| Performance testing | Yes |
+| Safety testing | Yes |
+| Non-deterministic AI behavior | Yes |
+| CI/CD integration | Yes |
+| Real-time/streaming behavior | Available, but authenticated E2E was limited by the local environment |
 
-The application is executed using the Docker image:
+The application therefore provides a suitable environment for demonstrating evidence-driven AI quality engineering rather than only conventional UI automation.
+
+---
+
+## 3. Version and Environment
+
+The application was deployed using Docker with the following image:
 
 ```text
 ghcr.io/open-webui/open-webui:v0.11.4
 ```
 
-The image is pinned to a specific release rather than using the moving `main` tag. This is important for reproducibility because the system under test should not silently change while the QA framework is being developed.
-
-The application data is persisted through the Docker volume:
+The application was exposed locally through:
 
 ```text
-open-webui:/app/backend/data
+http://localhost:3000
+```
+
+The deployed application version was verified through:
+
+```text
+/api/version
+```
+
+with the response:
+
+```json
+{
+  "version": "0.11.4",
+  "deployment_id": ""
+}
+```
+
+The AI backend used for the evaluation environment was **Ollama**, with the `llama3.2:3b` model available.
+
+---
+
+## 4. High-Level Architecture
+
+The tested environment consists of the following major components:
+
+```text
+                    Browser
+                       |
+                       v
+              +----------------+
+              |   Open WebUI   |
+              |    v0.11.4     |
+              +----------------+
+                       |
+                       v
+                  Ollama API
+                       |
+                       v
+                 llama3.2:3b
+```
+
+The QA framework interacts with the system through multiple layers:
+
+```text
+                    QA Framework
+                         |
+          +--------------+--------------+
+          |              |              |
+          v              v              v
+        UI Tests      API Tests      AI Tests
+          |              |              |
+          +--------------+--------------+
+                         |
+                         v
+                  Open WebUI / Ollama
 ```
 
 ---
 
-## 3. Purpose of the Application
+## 5. QA Architecture Around the Application
 
-Open WebUI provides a web interface for interacting with AI models.
-
-Its core workflow allows a user to:
-
-1. Authenticate with the application.
-2. Select an available AI model.
-3. Submit a prompt.
-4. Send the request to the configured AI provider.
-5. Receive the generated response.
-6. Continue the conversation using previous conversation context.
-7. Persist and access conversation data.
-
-The application also provides additional AI-oriented functionality that creates opportunities for deeper quality testing.
-
----
-
-## 4. AI Functionality
-
-The primary AI functionality is conversational interaction with configured language models.
-
-For this project, Ollama is used as the local model provider with:
+The automation framework was designed to test different layers independently while also supporting end-to-end validation.
 
 ```text
-Model: llama3.2:3b
+                    Test Framework
+                          |
+       +------------------+------------------+
+       |                  |                  |
+       v                  v                  v
+   UI / E2E            API / Backend      AI Evaluation
+       |                  |                  |
+       v                  v                  v
+  Playwright          HTTP Requests      Ollama Client
+       |                  |                  |
+       +------------------+------------------+
+                          |
+                          v
+                   Evidence / Reports
 ```
 
-The QA framework will evaluate observable AI behavior rather than hidden reasoning.
-
-The evaluation will focus on:
-
-* Correctness
-* Relevance
-* Completeness
-* Consistency
-* Groundedness where applicable
-* Tool-call correctness
-* Failure handling
-* Safety and constraint adherence
-* Latency
-
-For agent/tool workflows, evaluation will focus on the observable trajectory, including:
-
-* Whether the correct tool was selected
-* Whether the tool parameters were correct
-* Whether tools were unnecessarily called
-* Whether duplicate tool calls occurred
-* Whether failures were handled correctly
-* Whether the final response was consistent with tool results
-
-Hidden chain-of-thought will not be evaluated.
-
----
-
-## 5. Application Architecture
-
-The selected application contains multiple layers relevant to quality engineering.
-
-### Frontend
-
-The user interacts with Open WebUI through its web frontend.
-
-The frontend is responsible for:
-
-* Authentication flows
-* Model selection
-* Chat interaction
-* Conversation navigation
-* File/document interactions
-* Tool-related UI
-* Displaying generated responses
-* Handling asynchronous/streaming interaction
-
-### Backend
-
-The application uses a backend API layer responsible for application logic and communication with external/internal services.
-
-Relevant backend responsibilities include:
-
-* Authentication and authorization
-* Chat and conversation operations
-* Model/provider integration
-* Tool management and execution
-* Configuration
-* Retrieval-related operations
-* Persistent application state
-
-### Persistent Storage
-
-Open WebUI uses persistent application storage for data and configuration.
-
-The Docker deployment persists application data using:
+The AI evaluation layer additionally contains:
 
 ```text
-open-webui:/app/backend/data
-```
-
-This allows tests to verify state persistence and consistency across application interactions.
-
-### AI Provider
-
-The current test environment uses:
-
-```text
-Open WebUI
-      |
-      v
-    Ollama
-      |
-      v
- llama3.2:3b
-```
-
-This separation is particularly useful for dependency-failure testing because the AI provider can be treated as an independently failing dependency.
-
----
-
-## 6. Authentication and Authorization
-
-Authentication is part of the application and provides an important test surface.
-
-The QA framework will test:
-
-* Login behavior
-* Invalid authentication
-* Session handling
-* Session expiration where reproducible
-* Access to protected resources
-* User isolation
-* Authorization boundaries
-* Unauthorized API access
-
-The goal is to verify that authentication and authorization failures do not expose protected application data or allow unauthorized operations.
-
----
-
-## 7. External and Internal Dependencies
-
-The primary dependencies in the current environment are:
-
-| Dependency         | Purpose             | Failure scenarios                                |
-| ------------------ | ------------------- | ------------------------------------------------ |
-| Open WebUI         | System under test   | Application unavailable, backend failure         |
-| Ollama             | AI model provider   | Timeout, unavailable service, invalid response   |
-| `llama3.2:3b`      | Language model      | Slow response, incorrect response, variability   |
-| Docker             | Application runtime | Container failure, restart, resource constraints |
-| Persistent storage | Application state   | Persistence and consistency failures             |
-
-Additional Open WebUI functionality may introduce other dependencies, particularly when testing RAG, external search, tools, or other integrations.
-
----
-
-## 8. Critical Workflows
-
-The initial critical workflows selected for this QA project are:
-
-### WF-01 — AI Chat
-
-```text
-User
-  ↓
-Login
-  ↓
-Open Chat
-  ↓
-Select Model
-  ↓
-Submit Prompt
-  ↓
-Open WebUI Backend
-  ↓
-Ollama
-  ↓
-LLM Response
-  ↓
-Display Response
-  ↓
-Persist Conversation
-```
-
-### WF-02 — Multi-Turn Conversation
-
-```text
-Prompt 1
-   ↓
+AI Scenario Dataset
+        |
+        v
+Scenario Runner
+        |
+        v
 AI Response
-   ↓
-Prompt 2 referencing previous context
-   ↓
-AI Response
+        |
+        +-------------------+
+        |                   |
+        v                   v
+Rule-Based Evaluator   Semantic Evaluator
+        |                   |
+        +---------+---------+
+                  |
+                  v
+          Evaluation Result
 ```
-
-The test must verify that the second response correctly uses the relevant conversation context.
-
-### WF-03 — RAG / Knowledge Workflow
-
-```text
-Document
-   ↓
-Upload / Processing
-   ↓
-Chunking
-   ↓
-Embeddings
-   ↓
-Vector Storage
-   ↓
-User Query
-   ↓
-Retrieval
-   ↓
-LLM
-   ↓
-Grounded Response
-```
-
-This workflow provides opportunities to test retrieval correctness, groundedness, missing information, contradictory information, and document-processing failures.
-
-### WF-04 — Tool Execution
-
-```text
-User Request
-   ↓
-AI
-   ↓
-Tool Selection
-   ↓
-Tool Parameters
-   ↓
-Tool Execution
-   ↓
-Tool Result
-   ↓
-AI Final Response
-```
-
-Tests will validate tool selection, parameters, unnecessary calls, duplicate calls, failure handling, and consistency between tool results and the final response.
-
-### WF-05 — AI Dependency Failure
-
-```text
-User Request
-   ↓
-Open WebUI
-   ↓
-Ollama
-   ↓
-Dependency Failure
-   ↓
-Open WebUI Error Handling
-   ↓
-User
-```
-
-The test framework will inject dependency failures such as:
-
-* Service unavailable
-* Timeout
-* Slow response
-* Malformed response
-* Authentication failure where applicable
-* Partial failure
-
-The expected behavior is safe failure, useful error handling, and preservation of application consistency.
 
 ---
 
-## 9. Testability Challenges
+## 6. Critical Dependencies
 
-The application presents several challenges that make it suitable for an AI quality-engineering assignment.
+The main dependency relationships identified during testing are:
 
-### AI nondeterminism
+| Component | Role |
+|---|---|
+| Open WebUI | Application under test |
+| Ollama | AI model backend |
+| `llama3.2:3b` | Local language model |
+| Docker | Application runtime |
+| Playwright | Browser automation |
+| Pytest | Test execution |
+| GitHub Actions | CI/CD quality gate |
 
-The same prompt can potentially produce different valid responses across repeated executions.
-
-Therefore, exact string matching will not be used as the only AI evaluation mechanism.
-
-### AI correctness
-
-A response can be fluent while still being incorrect.
-
-The evaluation framework therefore needs explicit expected behavior and structured evaluators.
-
-### Tool behavior
-
-For tool-enabled workflows, evaluating only the final response is insufficient.
-
-The framework must also inspect observable tool behavior such as tool selection and parameters.
-
-### External dependency failures
-
-The AI provider is an independent service and can fail independently from Open WebUI.
-
-The framework therefore needs dependency-failure testing and service virtualization/mocking where appropriate.
-
-### Asynchronous behavior
-
-AI generation, streaming responses, document processing, and other operations may not complete immediately.
-
-Tests must synchronize against observable application state rather than relying on arbitrary fixed sleeps.
-
-### Flakiness
-
-AI variability and asynchronous application behavior can produce different outcomes.
-
-The project will distinguish:
-
-* Genuine product regression
-* Expected AI variance
-* Flaky test
-* Infrastructure failure
-* Test defect
-
-### Reproducibility
-
-The application version and local model provider must remain controlled so that changes in the test environment do not get mistaken for application regressions.
+The dependency relationship is important for failure-injection testing because AI behavior depends on an external model-serving component.
 
 ---
 
-## 10. Why Open WebUI Provides Sufficient Testing Depth
+## 7. Why This Application Is Suitable for AI QA
 
-Open WebUI provides enough functionality to exercise multiple layers of an AI quality framework.
+A conventional CRUD application would not adequately demonstrate the AI-specific requirements of the assignment.
 
-The project can cover:
+Open WebUI provides observable AI behavior that can be evaluated for:
 
-* UI/E2E testing
-* API/backend testing
-* Authentication and authorization
-* Persistent state
-* AI response evaluation
-* Multi-turn conversations
-* RAG evaluation
-* Tool-call evaluation
-* Dependency failure testing
-* Async behavior
-* Concurrency
-* Performance and latency
-* AI safety/adversarial scenarios
-* Non-deterministic regression
-* CI/CD quality gates
-* Observability and diagnostics
-* Root-cause analysis
+- correctness
+- relevance
+- consistency
+- groundedness
+- instruction following
+- safety
+- prompt-injection resistance
+- hallucination behavior
+- latency
+- nondeterminism
+- failure handling
 
-This makes it possible to build a quality infrastructure around a real AI application rather than testing an isolated model or a simple API wrapper.
+The application therefore supports the central objective of the project: building quality infrastructure that can distinguish ordinary application failures from AI-quality issues and test/evaluation instability.
 
 ---
 
-## 11. Known Limitations of the Current Setup
+## 8. Scope and Environment Limitations
 
-The current local environment uses:
+The local environment introduced several limitations that are documented rather than treated as successful coverage.
+
+### Authentication
+
+Valid QA credentials for an authenticated Open WebUI user were not available.
+
+Therefore:
+
+- unauthenticated authorization behavior was tested;
+- invalid credential handling was tested;
+- positive authenticated workflows could not be reliably executed.
+
+### Real-Time E2E
+
+Open WebUI supports streaming AI responses, but the authenticated application path was unavailable in the local environment.
+
+Therefore, full authenticated streaming failure/recovery testing could not be completed.
+
+Additional AI evaluation was used to increase coverage of the AI-specific requirements.
+
+### OpenAPI
+
+The `/openapi.json` endpoint was investigated, but the response was frontend HTML rather than a valid OpenAPI specification.
+
+Therefore, contract tests were not created against an unavailable/invalid API schema.
+
+### Resource Telemetry
+
+Performance testing includes Docker container resource sampling for Open WebUI.
+
+The AI benchmark itself sends requests directly to Ollama, so the collected Open WebUI container telemetry does not represent complete Ollama/model-process resource usage.
+
+---
+
+## 9. Selection Conclusion
+
+Open WebUI v0.11.4 provides a realistic AI-powered system with sufficient observable behavior to exercise the required QA dimensions.
+
+The project therefore focuses on building reusable, evidence-driven automation around:
 
 ```text
-Open WebUI v0.11.4
-Ollama
-llama3.2:3b
+UI
+API / Backend
+AI / LLM Evaluation
+Dependency Failures
+Safety
+Nondeterminism
+Reliability
+Concurrency
+Performance
+CI/CD
+Root-Cause Analysis
 ```
 
-Therefore, the test results will primarily represent this local configuration.
-
-Results may differ when using:
-
-* Different Open WebUI versions
-* Different language models
-* Different model sizes
-* Cloud AI providers
-* Different hardware
-* Different model parameters
-* External search or integration providers
-
-Where a capability such as real-time communication is not applicable to a particular workflow, the project will substitute deeper AI evaluation, adversarial testing, dependency-failure testing, or stochastic evaluation as appropriate.
-
----
-
-## 12. Selection Rationale
-
-Open WebUI was selected because it provides a
+The documented environment limitations are incorporated into the coverage matrix and final test reports rather than being hidden.

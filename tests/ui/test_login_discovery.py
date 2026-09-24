@@ -1,12 +1,15 @@
+import pytest
 from playwright.sync_api import sync_playwright
 
 
 BASE_URL = "http://localhost:3000"
 
 
-def test_invalid_login_keeps_user_on_auth_page():
+@pytest.mark.parametrize("browser_name", ["chromium", "firefox"])
+def test_invalid_login_keeps_user_on_auth_page(browser_name):
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        browser_type = getattr(p, browser_name)
+        browser = browser_type.launch()
         context = browser.new_context()
         page = context.new_page()
 
@@ -37,7 +40,6 @@ def test_invalid_login_keeps_user_on_auth_page():
         )
 
         assert len(signin_requests) == 1
-
         assert signin_requests[0].method == "POST"
 
         browser.close()

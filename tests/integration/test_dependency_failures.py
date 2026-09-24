@@ -110,3 +110,45 @@ def test_dependency_unavailable_is_detected(monkeypatch):
         assert False, "Expected dependency unavailable failure"
     except requests.ConnectionError as exc:
         assert "unavailable" in str(exc).lower()
+
+def test_dependency_rate_limit_is_detected(monkeypatch):
+    client = OllamaClient()
+
+    def fake_post(*args, **kwargs):
+        return FakeResponse(
+            429,
+            {"error": "rate limit exceeded"}
+        )
+
+    monkeypatch.setattr(requests, "post", fake_post)
+
+    try:
+        client.generate("test prompt")
+        assert False, "Expected HTTP 429 error"
+    except requests.HTTPError as exc:
+        assert "429" in str(exc)
+
+
+def test_dependency_partial_response_is_handled(monkeypatch):
+    client = OllamaClient()
+
+    class PartialResponse:
+        status_code = 200
+
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {
+                "response": "partial"
+                # Intentionally missing optional metadata fields
+            }
+
+    def fake_post(*args, **kwargs):
+        return PartialResponse()
+
+    monkeypatch.setattr(requests, "post", fake_post)
+
+    result = client.generate("test prompt")
+
+    assert result["response"] == "partial"

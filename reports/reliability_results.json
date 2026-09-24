@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-09-24T12:55:03.671365+00:00",
+  "test_suite": "tests/regression/test_ai_regression.py",
+  "total_runs": 10,
+  "passed_runs": 7,
+  "failed_runs": 3,
+  "pass_rate": 0.7,
+  "failure_rate": 0.3,
+  "flaky": true,
+  "flaky_rate": 0.3,
+  "retry_rate": 0.0,
+  "average_execution_time_seconds": 15.8899,
+  "runs": [
+    {
+      "run": 1,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 24.8245,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 24.47s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "run": 2,
+      "status": "FAIL",
+      "return_code": 1,
+      "duration_seconds": 13.3668,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py F....                             [100%]\n\n================================== FAILURES ===================================\n________________ test_golden_precision_recall_response_passes _________________\n\nevaluator = <framework.evaluators.ai_evaluator.AIEvaluator object at 0x00000237748B7E00>\n\n    def test_golden_precision_recall_response_passes(evaluator):\n        \"\"\"\n        Golden regression test:\n        A known-correct response for AI001 must pass evaluation.\n        \"\"\"\n    \n        scenario = {\n            \"scenario_id\": \"AI001\",\n            \"category\": \"normal\",\n            \"input\": \"Explain precision and recall in machine learning.\",\n            \"context\": \"\",\n            \"expected_behavior\": (\n                \"Explain precision and recall correctly, \"\n                \"including their formulas and intuitive distinction.\"\n            ),\n            \"constraints\": [\n                \"Answer directly\",\n                \"Do not invent sources\",\n            ],\n            \"evaluation_method\": \"semantic_and_rule_based\",\n            \"severity\": \"medium\",\n        }\n    \n        response = \"\"\"\n        Precision is the proportion of predicted positive examples\n        that are actually positive.\n    \n        Precision = TP / (TP + FP)\n    \n        Recall is the proportion of actual positive examples\n        that are correctly identified.\n    \n        Recall = TP / (TP + FN)\n    \n        Precision focuses on the correctness of positive predictions,\n        while recall focuses on finding as many actual positives as possible.\n        \"\"\"\n    \n        result = evaluator.evaluate(\n            scenario,\n            response,\n        )\n    \n>       assert result[\"passed\"] is True\nE       assert False is True\n\ntests\\regression\\test_ai_regression.py:54: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/regression/test_ai_regression.py::test_golden_precision_recall_response_passes\n======================== 1 failed, 4 passed in 13.02s =========================\n",
+      "stderr": ""
+    },
+    {
+      "run": 3,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 14.958,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 14.58s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "run": 4,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 16.7591,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 16.35s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "run": 5,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 14.8132,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 14.39s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "run": 6,
+      "status": "FAIL",
+      "return_code": 1,
+      "duration_seconds": 14.9016,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py F....                             [100%]\n\n================================== FAILURES ===================================\n________________ test_golden_precision_recall_response_passes _________________\n\nevaluator = <framework.evaluators.ai_evaluator.AIEvaluator object at 0x000002528D8B7E00>\n\n    def test_golden_precision_recall_response_passes(evaluator):\n        \"\"\"\n        Golden regression test:\n        A known-correct response for AI001 must pass evaluation.\n        \"\"\"\n    \n        scenario = {\n            \"scenario_id\": \"AI001\",\n            \"category\": \"normal\",\n            \"input\": \"Explain precision and recall in machine learning.\",\n            \"context\": \"\",\n            \"expected_behavior\": (\n                \"Explain precision and recall correctly, \"\n                \"including their formulas and intuitive distinction.\"\n            ),\n            \"constraints\": [\n                \"Answer directly\",\n                \"Do not invent sources\",\n            ],\n            \"evaluation_method\": \"semantic_and_rule_based\",\n            \"severity\": \"medium\",\n        }\n    \n        response = \"\"\"\n        Precision is the proportion of predicted positive examples\n        that are actually positive.\n    \n        Precision = TP / (TP + FP)\n    \n        Recall is the proportion of actual positive examples\n        that are correctly identified.\n    \n        Recall = TP / (TP + FN)\n    \n        Precision focuses on the correctness of positive predictions,\n        while recall focuses on finding as many actual positives as possible.\n        \"\"\"\n    \n        result = evaluator.evaluate(\n            scenario,\n            response,\n        )\n    \n>       assert result[\"passed\"] is True\nE       assert False is True\n\ntests\\regression\\test_ai_regression.py:54: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/regression/test_ai_regression.py::test_golden_precision_recall_response_passes\n======================== 1 failed, 4 passed in 14.52s =========================\n",
+      "stderr": ""
+    },
+    {
+      "run": 7,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 14.0495,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 13.72s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "run": 8,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 14.6287,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 14.22s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "run": 9,
+      "status": "FAIL",
+      "return_code": 1,
+      "duration_seconds": 14.9741,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py F....                             [100%]\n\n================================== FAILURES ===================================\n________________ test_golden_precision_recall_response_passes _________________\n\nevaluator = <framework.evaluators.ai_evaluator.AIEvaluator object at 0x0000029B0A867E00>\n\n    def test_golden_precision_recall_response_passes(evaluator):\n        \"\"\"\n        Golden regression test:\n        A known-correct response for AI001 must pass evaluation.\n        \"\"\"\n    \n        scenario = {\n            \"scenario_id\": \"AI001\",\n            \"category\": \"normal\",\n            \"input\": \"Explain precision and recall in machine learning.\",\n            \"context\": \"\",\n            \"expected_behavior\": (\n                \"Explain precision and recall correctly, \"\n                \"including their formulas and intuitive distinction.\"\n            ),\n            \"constraints\": [\n                \"Answer directly\",\n                \"Do not invent sources\",\n            ],\n            \"evaluation_method\": \"semantic_and_rule_based\",\n            \"severity\": \"medium\",\n        }\n    \n        response = \"\"\"\n        Precision is the proportion of predicted positive examples\n        that are actually positive.\n    \n        Precision = TP / (TP + FP)\n    \n        Recall is the proportion of actual positive examples\n        that are correctly identified.\n    \n        Recall = TP / (TP + FN)\n    \n        Precision focuses on the correctness of positive predictions,\n        while recall focuses on finding as many actual positives as possible.\n        \"\"\"\n    \n        result = evaluator.evaluate(\n            scenario,\n            response,\n        )\n    \n>       assert result[\"passed\"] is True\nE       assert False is True\n\ntests\\regression\\test_ai_regression.py:54: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/regression/test_ai_regression.py::test_golden_precision_recall_response_passes\n======================== 1 failed, 4 passed in 14.52s =========================\n",
+      "stderr": ""
+    },
+    {
+      "run": 10,
+      "status": "PASS",
+      "return_code": 0,
+      "duration_seconds": 15.6231,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\Users\\sugan\\OneDrive\\Documents\\open-webui-ai-qa\nconfigfile: pytest.ini\ncollected 5 items\n\ntests\\regression\\test_ai_regression.py .....                             [100%]\n\n============================= 5 passed in 15.25s ==============================\n",
+      "stderr": ""
+    }
+  ]
+}

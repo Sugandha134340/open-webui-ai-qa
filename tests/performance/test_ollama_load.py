@@ -4,7 +4,8 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
-
+import subprocess
+import threading
 from framework.clients.ollama_client import OllamaClient
 
 
@@ -43,6 +44,67 @@ def percentile(values, percentile):
         * fraction
     )
 
+def sample_container_resources(
+    container_name="open-webui",
+    interval=0.5,
+):
+    """
+    Sample Docker container CPU and memory usage while a
+    performance level is running.
+    """
+
+    samples = []
+    stop_event = threading.Event()
+
+    def sampler():
+        while not stop_event.is_set():
+            try:
+                result = subprocess.run(
+                    [
+                        "docker",
+                        "stats",
+                        container_name,
+                        "--no-stream",
+                        "--format",
+                        "{{.CPUPerc}}|{{.MemUsage}}|{{.MemPerc}}",
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=5,
+                    check=False,
+                )
+
+                if result.returncode == 0:
+                    output = result.stdout.strip()
+
+                    if output:
+                        parts = output.split("|")
+
+                        if len(parts) == 3:
+                            samples.append(
+                                {
+                                    "cpu_percent": parts[0],
+                                    "memory_usage": parts[1],
+                                    "memory_percent": parts[2],
+                                    "timestamp": datetime.now(
+                                        timezone.utc
+                                    ).isoformat(),
+                                }
+                            )
+
+            except Exception:
+                pass
+
+            stop_event.wait(interval)
+
+    thread = threading.Thread(
+        target=sampler,
+        daemon=True,
+    )
+
+    thread.start()
+
+    return stop_event, thread, samples
 
 def run_request(request_id):
     client = OllamaClient(
@@ -93,27 +155,36 @@ def run_request(request_id):
 def run_level(concurrency):
     start = time.perf_counter()
 
+    resource_stop, resource_thread, resource_samples = (
+        sample_container_resources()
+    )
+
     results = []
 
-    with ThreadPoolExecutor(
-        max_workers=concurrency
-    ) as executor:
+    try:
+        with ThreadPoolExecutor(
+            max_workers=concurrency
+        ) as executor:
 
-        futures = [
-            executor.submit(
-                run_request,
-                request_id,
-            )
-            for request_id in range(
-                1,
-                concurrency + 1,
-            )
-        ]
+            futures = [
+                executor.submit(
+                    run_request,
+                    request_id,
+                )
+                for request_id in range(
+                    1,
+                    concurrency + 1,
+                )
+            ]
 
-        for future in as_completed(futures):
-            results.append(
-                future.result()
-            )
+            for future in as_completed(futures):
+                results.append(
+                    future.result()
+                )
+
+    finally:
+        resource_stop.set()
+        resource_thread.join(timeout=2)
 
     wall_clock = (
         time.perf_counter() - start
@@ -162,9 +233,12 @@ def run_level(concurrency):
             percentile(latencies, 95),
             4,
         ),
+        "resource_samples": resource_samples,
+        "resource_sample_count": len(
+            resource_samples
+        ),
         "results": results,
     }
-
 
 def test_ollama_load_levels():
     """
@@ -215,6 +289,17 @@ def test_ollama_load_levels():
             f"P95 latency: "
             f"{result['p95_latency_seconds']:.2f}s"
         )
+
+        print(
+            f"Resource samples: "
+            f"{result['resource_sample_count']}"
+        )
+
+        if result["resource_samples"]:
+            print(
+                "Container resource telemetry captured "
+                "for open-webui."
+            )
 
     report = {
         "timestamp": datetime.now(
