@@ -1,0 +1,233 @@
+{
+  "timestamp": "2026-09-24T10:07:04.656927+00:00",
+  "model": "llama3.2:3b",
+  "temperature": 0.0,
+  "repetitions_per_scenario": 10,
+  "tolerance_model": {
+    "stable_pass": ">= 80% pass rate",
+    "flaky": "1% to 79% pass rate",
+    "stable_fail": "0% pass rate",
+    "errors": "Infrastructure/dependency failure reported separately"
+  },
+  "scenarios": [
+    {
+      "scenario": {
+        "scenario_id": "AI026",
+        "repetitions": 10,
+        "passed": 10,
+        "failed": 0,
+        "errors": 0,
+        "pass_rate": 1.0,
+        "classification": "STABLE_PASS"
+      },
+      "runs": [
+        {
+          "run": 1,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 9.7155
+        },
+        {
+          "run": 2,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.787
+        },
+        {
+          "run": 3,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.7256
+        },
+        {
+          "run": 4,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.7226
+        },
+        {
+          "run": 5,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.765
+        },
+        {
+          "run": 6,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.672
+        },
+        {
+          "run": 7,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.7075
+        },
+        {
+          "run": 8,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.8037
+        },
+        {
+          "run": 9,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.7644
+        },
+        {
+          "run": 10,
+          "status": "PASS",
+          "response": "The capital of France is Paris.",
+          "latency_seconds": 2.7168
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "scenario_id": "AI027",
+        "repetitions": 10,
+        "passed": 10,
+        "failed": 0,
+        "errors": 0,
+        "pass_rate": 1.0,
+        "classification": "STABLE_PASS"
+      },
+      "runs": [
+        {
+          "run": 1,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 4.0386
+        },
+        {
+          "run": 2,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.9301
+        },
+        {
+          "run": 3,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 3.0654
+        },
+        {
+          "run": 4,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.8763
+        },
+        {
+          "run": 5,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.8226
+        },
+        {
+          "run": 6,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.8534
+        },
+        {
+          "run": 7,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.843
+        },
+        {
+          "run": 8,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.848
+        },
+        {
+          "run": 9,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.9397
+        },
+        {
+          "run": 10,
+          "status": "PASS",
+          "response": "17 multiplied by 8 is 136.",
+          "latency_seconds": 2.9875
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "scenario_id": "AI028",
+        "repetitions": 10,
+        "passed": 10,
+        "failed": 0,
+        "errors": 0,
+        "pass_rate": 1.0,
+        "classification": "STABLE_PASS"
+      },
+      "runs": [
+        {
+          "run": 1,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 9.7503
+        },
+        {
+          "run": 2,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.8881
+        },
+        {
+          "run": 3,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.56
+        },
+        {
+          "run": 4,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.4847
+        },
+        {
+          "run": 5,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.4808
+        },
+        {
+          "run": 6,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.5263
+        },
+        {
+          "run": 7,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.4833
+        },
+        {
+          "run": 8,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.5496
+        },
+        {
+          "run": 9,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.5614
+        },
+        {
+          "run": 10,
+          "status": "PASS",
+          "response": "A binary search tree (BST) is a data structure in which each node has at most two children (i.e., left child and right child) and each node represents a value. The left subtree of a node contains only values less than the node's value, while the right subtree of a node contains only values greater than the node's value. This ordering allows for efficient searching, insertion, and deletion of nodes in the tree.",
+          "latency_seconds": 8.5146
+        }
+      ]
+    }
+  ]
+}

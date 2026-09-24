@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-09-24T10:34:06.647520+00:00",
+  "test_type": "stepped_load",
+  "model": "llama3.2:3b",
+  "concurrency_levels": [
+    1,
+    3,
+    5
+  ],
+  "levels": [
+    {
+      "concurrency": 1,
+      "requests": 1,
+      "successful": 1,
+      "failed": 0,
+      "error_rate": 0.0,
+      "wall_clock_seconds": 3.4056,
+      "average_latency_seconds": 3.4039,
+      "p50_latency_seconds": 3.4039,
+      "p95_latency_seconds": 3.4039,
+      "results": [
+        {
+          "request_id": 1,
+          "status": "PASS",
+          "latency_seconds": 3.4039,
+          "response_non_empty": true
+        }
+      ]
+    },
+    {
+      "concurrency": 3,
+      "requests": 3,
+      "successful": 3,
+      "failed": 0,
+      "error_rate": 0.0,
+      "wall_clock_seconds": 5.694,
+      "average_latency_seconds": 4.359,
+      "p50_latency_seconds": 4.3395,
+      "p95_latency_seconds": 5.5558,
+      "results": [
+        {
+          "request_id": 1,
+          "status": "PASS",
+          "latency_seconds": 3.0465,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 2,
+          "status": "PASS",
+          "latency_seconds": 4.3395,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 3,
+          "status": "PASS",
+          "latency_seconds": 5.6909,
+          "response_non_empty": true
+        }
+      ]
+    },
+    {
+      "concurrency": 5,
+      "requests": 5,
+      "successful": 5,
+      "failed": 0,
+      "error_rate": 0.0,
+      "wall_clock_seconds": 7.8409,
+      "average_latency_seconds": 5.45,
+      "p50_latency_seconds": 5.4574,
+      "p95_latency_seconds": 7.6219,
+      "results": [
+        {
+          "request_id": 1,
+          "status": "PASS",
+          "latency_seconds": 3.107,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 2,
+          "status": "PASS",
+          "latency_seconds": 4.0881,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 5,
+          "status": "PASS",
+          "latency_seconds": 5.4574,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 4,
+          "status": "PASS",
+          "latency_seconds": 6.7604,
+          "response_non_empty": true
+        },
+        {
+          "request_id": 3,
+          "status": "PASS",
+          "latency_seconds": 7.8373,
+          "response_non_empty": true
+        }
+      ]
+    }
+  ]
+}

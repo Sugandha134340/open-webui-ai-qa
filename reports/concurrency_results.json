@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-09-24T10:30:45.806217+00:00",
+  "test_type": "concurrency",
+  "model": "llama3.2:3b",
+  "concurrent_requests": 5,
+  "wall_clock_seconds": 9.7805,
+  "successful_requests": 5,
+  "failed_requests": 0,
+  "error_rate": 0.0,
+  "results": [
+    {
+      "request_id": 1,
+      "status": "PASS",
+      "response_non_empty": true,
+      "latency_seconds": 8.2712
+    },
+    {
+      "request_id": 2,
+      "status": "PASS",
+      "response_non_empty": true,
+      "latency_seconds": 3.5962
+    },
+    {
+      "request_id": 3,
+      "status": "PASS",
+      "response_non_empty": true,
+      "latency_seconds": 6.5078
+    },
+    {
+      "request_id": 4,
+      "status": "PASS",
+      "response_non_empty": true,
+      "latency_seconds": 9.7751
+    },
+    {
+      "request_id": 5,
+      "status": "PASS",
+      "response_non_empty": true,
+      "latency_seconds": 5.0801
+    }
+  ]
+}
