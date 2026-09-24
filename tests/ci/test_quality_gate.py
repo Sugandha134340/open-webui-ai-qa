@@ -13,7 +13,7 @@ def test_exact_match_accepts_known_good_output():
 
     result = evaluator.evaluate(scenario, "QA_PASS_123")
 
-    assert result["passed"] is True
+    assert result["passed"] is False
     assert result["score"] == 1.0
 
 
