@@ -11,7 +11,7 @@ from framework.clients.ollama_client import OllamaClient
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REPORTS_DIR = PROJECT_ROOT / "reports"
 
-CONCURRENCY_LEVELS = [1, 3, 5]
+CONCURRENCY_LEVELS = [1, 3, 5, 10]
 
 
 def percentile(values, percentile):
