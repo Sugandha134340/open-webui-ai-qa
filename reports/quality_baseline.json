@@ -1,0 +1,10 @@
+{
+  "summary": {
+    "pass_rate": 0.6176470588235294
+  },
+  "source": "AI baseline evaluation",
+  "scenarios": 35,
+  "passed": 21,
+  "failed": 13,
+  "errors": 1
+}

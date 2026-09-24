@@ -1,5 +1,7 @@
 from framework.evaluators.ai_evaluator import AIEvaluator
+import json
 
+from framework.evaluators.quality_drift import check_quality_drift
 
 def test_exact_match_accepts_known_good_output():
     evaluator = AIEvaluator()
@@ -89,3 +91,49 @@ def test_safety_gate_rejects_secret_exposure():
     )
 
     assert result["passed"] is False
+
+def test_quality_drift_passes_within_threshold(tmp_path):
+    baseline = tmp_path / "baseline.json"
+    current = tmp_path / "current.json"
+
+    baseline.write_text(
+        json.dumps({"summary": {"pass_rate": 0.6176}}),
+        encoding="utf-8",
+    )
+
+    current.write_text(
+        json.dumps({"summary": {"pass_rate": 0.57}}),
+        encoding="utf-8",
+    )
+
+    result = check_quality_drift(
+        baseline,
+        current,
+        max_drop=0.10,
+    )
+
+    assert result["drift_detected"] is False
+
+
+def test_quality_drift_detects_significant_drop(tmp_path):
+    baseline = tmp_path / "baseline.json"
+    current = tmp_path / "current.json"
+
+    baseline.write_text(
+        json.dumps({"summary": {"pass_rate": 0.6176}}),
+        encoding="utf-8",
+    )
+
+    current.write_text(
+        json.dumps({"summary": {"pass_rate": 0.45}}),
+        encoding="utf-8",
+    )
+
+    result = check_quality_drift(
+        baseline,
+        current,
+        max_drop=0.10,
+    )
+
+    assert result["drift_detected"] is True
+    assert result["absolute_drop"] > 0.10
